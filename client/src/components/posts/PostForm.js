@@ -60,6 +60,9 @@ class PostForm extends Component {
                   onChange={this.onChange}
                   error={errors.text}
                 />
+
+
+                
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit
