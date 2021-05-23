@@ -68,7 +68,7 @@ const Login = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.loginUser(userData);
+    props.loginUser();
   };
 
   const onChange = (e) => {
@@ -76,7 +76,7 @@ const Login = (props) => {
   };
 
   return (
-    <>
+    <div>
       <Grid className={classes.heading}>
         <h1>Document Management System</h1>
       </Grid>
@@ -147,7 +147,7 @@ const Login = (props) => {
           </div>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 

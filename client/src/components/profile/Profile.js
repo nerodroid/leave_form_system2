@@ -96,6 +96,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = (props) => {
+  const [values, setValues] = useState({ email: "", password: "" });
+  const { errors } = props;
+  const classes = useStyles();
+  const defaultProps = {
+    bgcolor: "background.paper",
+    style: {
+      height: "auto",
+      paddingTop: "4px",
+      paddingBottom: "4px",
+      marginTop: "0px",
+      backgroundColor: "#eceff1",
+      marginLeft: "0px",
+      paddingLeft: "10px",
+    },
+  };
   useEffect(() => {
     const componentDidMount = () => {
       if (props.match.params.handle) {
@@ -287,9 +302,7 @@ const Profile = (props) => {
                       borderRadius="borderRadius"
                       {...defaultProps}
                       fullWidth
-                    >
-                      {output}
-                    </Box>
+                    ></Box>
                   </Grid>
                 </Grid>
               </React.Fragment>
