@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = (props) => {
   const [values, setValues] = useState({
-    firstName: "",
+    name: "",
     lastName: "",
     empId: "",
     faculty: "Faculty Of Science",
@@ -57,9 +57,13 @@ const Register = (props) => {
     address: "",
     gender: "Male",
     password: "",
+    password2: "",
     fullName: "",
     phoneNo: "",
   });
+  const handleChange = (e) =>
+    setValues({ ...values, [e.target.name]: e.target.value });
+
   const { errors } = props;
   const classes = useStyles();
 
@@ -74,22 +78,12 @@ const Register = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2,
-    };
-
-    this.props.registerUser(newUser, this.props.history);
+    props.registerUser(values, props.history);
   };
 
   const onChange = (e) => {
     setValues({ [e.target.name]: e.target.value });
   };
-  const handleChange = (e) =>
-    setValues({ ...values, [e.target.name]: e.target.value });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -100,12 +94,17 @@ const Register = (props) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} method="POST" noValidate>
+        <form
+          className={classes.form}
+          method="POST"
+          noValidate
+          onSubmit={onSubmit}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
@@ -271,7 +270,7 @@ const Register = (props) => {
                 variant="outlined"
                 required
                 fullWidth
-                name="confirmPassword"
+                name="password2"
                 label="ConfirmPassword"
                 type="password"
                 id="ConfirmPassword"
