@@ -73,6 +73,9 @@ const Register = (props) => {
   }, []);
 
   const onSubmit = (e) => {
+
+    
+    Debug.Log(this.state.name);
     e.preventDefault();
 
     const newUser = {
@@ -81,7 +84,7 @@ const Register = (props) => {
       password: this.state.password,
       password2: this.state.password2,
     };
-
+    //
     this.props.registerUser(newUser, this.props.history);
   };
 
@@ -100,7 +103,7 @@ const Register = (props) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} method="POST" noValidate>
+        <form className={classes.form} method="POST" noValidate onSubmit={onSubmit} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
