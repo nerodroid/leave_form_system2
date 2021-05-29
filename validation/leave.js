@@ -7,7 +7,7 @@ module.exports = function validatePostInput(data) {
   data.reason = !isEmpty(data.reason) ? data.reason : '';
 
   data.nameOfActor = !isEmpty(data.nameOfActor) ? data.nameOfActor : '';
-  console.log(data);
+  //console.log(data);
   
 
   if (Validator.isEmpty(data.reason)) {

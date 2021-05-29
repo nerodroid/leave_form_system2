@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import LeaveForm from './LeaveForm';
 import LeaveFeed from './LeaveFeed';
 import Spinner from '../common/Spinner';
-import { getLeaves } from '../../actions/LeaveActions';
+import { getLeaves } from '../../actions/leaveActions';
 
 class Leaves extends Component {
   componentDidMount() {
@@ -13,7 +13,7 @@ class Leaves extends Component {
 
   render() {
     const { leaves, loading } = this.props.leave;
-    let LeaveContent;
+    let leaveContent;
 
     if (leaves === null || loading) {
       leaveContent = <Spinner />;

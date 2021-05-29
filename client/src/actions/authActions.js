@@ -7,20 +7,23 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 // Register User
 export const registerUser = (userData, history) => dispatch => {
 
-  Debug.Log("fuk here");
   axios
     .post('api/users/register', userData)
     .then(res => history.push('/login'))
     .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
+      {
+        console.log(err)
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      }
     );
 };
 
 // Login - Get User Token
-export const loginUser = userData => dispatch => {
+export const loginUser = (userData,history) => dispatch => {
+  
   axios
     .post('api/users/login', userData)
     .then(res => {
@@ -30,16 +33,23 @@ export const loginUser = userData => dispatch => {
       localStorage.setItem('jwtToken', token);
       // Set token to Auth header
       setAuthToken(token);
+
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-    })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
+
+      console.log("done")
+
+      history.push('/dashboard')
+    }).catch(err => {
+      console.log(err)
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: err.response.data
+      // })
+    }
+      
     );
 };
 
