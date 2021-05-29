@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = (props) => {
   const [values, setValues] = useState({
-    firstName: "",
+    name: "",
     lastName: "",
     empId: "",
     faculty: "Faculty Of Science",
@@ -57,9 +57,13 @@ const Register = (props) => {
     address: "",
     gender: "Male",
     password: "",
+    password2: "",
     fullName: "",
     phoneNo: "",
   });
+  const handleChange = (e) =>
+    setValues({ ...values, [e.target.name]: e.target.value });
+
   const { errors } = props;
   const classes = useStyles();
 
@@ -91,8 +95,6 @@ const Register = (props) => {
   const onChange = (e) => {
     setValues({ [e.target.name]: e.target.value });
   };
-  const handleChange = (e) =>
-    setValues({ ...values, [e.target.name]: e.target.value });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -108,7 +110,7 @@ const Register = (props) => {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
@@ -274,7 +276,7 @@ const Register = (props) => {
                 variant="outlined"
                 required
                 fullWidth
-                name="confirmPassword"
+                name="password2"
                 label="ConfirmPassword"
                 type="password"
                 id="ConfirmPassword"
