@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import { Avatar, Box, Grid, IconButton } from "@material-ui/core";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -141,13 +142,16 @@ const Profile = (props) => {
                 <Grid className={classes.profilePhoto}>
                   <Grid>
                     <div className={classes.buttons}>
-                      <Button
+                      {/* <Button
                         variant="contained"
                         color="primary"
                         className={classes.button}
                       >
                         Edit Profile
-                      </Button>
+                      </Button> */}
+                      <Link to="/edit-profile" className="btn btn-light">
+        <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
+      </Link>
                     </div>
                   </Grid>
                   <Grid

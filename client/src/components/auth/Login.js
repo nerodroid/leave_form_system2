@@ -60,6 +60,9 @@ const Login = (props) => {
   const { errors } = props;
   const classes = useStyles();
 
+  const handleChange = (e) =>
+    setValues({ ...values, [e.target.name]: e.target.value });
+
   useEffect(() => {
     if (props.auth.isAuthenticated) {
       props.history.push("/dashboard");
@@ -68,7 +71,7 @@ const Login = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.loginUser();
+    props.loginUser(values, props.history);
   };
 
   const onChange = (e) => {
@@ -91,7 +94,12 @@ const Login = (props) => {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            <form className={classes.form} noValidate>
+            <form 
+            className={classes.form}  
+            method="POST"
+            noValidate
+            onSubmit={onSubmit}
+            >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -103,6 +111,7 @@ const Login = (props) => {
                 autoComplete="email"
                 autoFocus
                 size="small"
+                onChange={handleChange}
               />
               <TextField
                 variant="outlined"
@@ -115,6 +124,7 @@ const Login = (props) => {
                 id="password"
                 autoComplete="current-password"
                 size="small"
+                onChange={handleChange}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
