@@ -6,31 +6,23 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 // Register User
 
-export const registerUser = (userData, history) => dispatch => {
-
+export const registerUser = (values, history) => (dispatch) => {
   axios
- 
-    .post('api/users/register', userData)
-    .then(res => history.push('/login'))
-    .catch(err =>
-      {
-        console.log(err)
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data
-        })
-      }
+    .post('api/users/register', values)
+    .then((res) => history.push("/login"))
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
     );
 };
  
 // Login - Get User Token
-
-
-export const loginUser = (userData, history) => dispatch => {
-  
+export const loginUser = (userData, history) => (dispatch) => {
   axios
     .post('api/users/login', userData)
-    .then(res => {
+    .then((res) => {
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -42,7 +34,7 @@ export const loginUser = (userData, history) => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-      history.push("/home")
+      history.push('/home');
     })
     .catch((err) =>
       dispatch({
@@ -61,7 +53,7 @@ export const setCurrentUser = (decoded) => {
 };
 
 // Log user out
-export const logoutUser = (history) => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
   // Remove token from localStorage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests

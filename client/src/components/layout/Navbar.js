@@ -89,8 +89,7 @@ const Navbar = (props) => {
   const onLogoutClick = (e) => {
     e.preventDefault();
     props.clearCurrentProfile();
-    props.logoutUser( props.history);
-    props.history.push("/login");
+    props.logoutUser();
   };
 
   const { isAuthenticated, user } = props.auth;
@@ -181,20 +180,6 @@ const Navbar = (props) => {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-      <MenuItem onClick={handleMenuClose}><a
-            href="/login"
-            onClick={onLogoutClick}
-            className="nav-link"
-          >
-            <img
-              className="rounded-circle"
-              src={user.avatar}
-              alt={user.name}
-              style={{ width: '25px', marginRight: '5px' }}
-              title="You must have a Gravatar connected to your email to display an image"
-            />{' '}
-            Logout
-          </a></MenuItem>
     </Menu>
   );
 

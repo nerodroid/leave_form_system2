@@ -51,7 +51,7 @@ const Register = (props) => {
     lastName: "",
     empId: "",
     faculty: "Faculty Of Science",
-    type: "Vice Chancellor",
+    user_type: "Vice Chancellor",
     email: "",
     dateOfBirth: new Date(),
     address: "",
@@ -170,7 +170,7 @@ const Register = (props) => {
             <InputLabel id="label" className={classes.label}>
               Employee Type :
             </InputLabel>
-            <Select onChange={handleChange} name="type" value={values.type}>
+            <Select onChange={handleChange} name="user_type" value={values.user_type}>
               <MenuItem value="Vice Chancellor">Vice Chancellor</MenuItem>
               <MenuItem value="Assistant Registrat">
                 Assistant Registrat
