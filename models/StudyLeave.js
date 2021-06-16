@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const extendSchema = require('mongoose-extend-schema');
 // Create Schema
-const LeaveSchema = new Schema({
+const StudyLeaveSchema = extendSchema(LeaveSchema,  
+    {
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
@@ -24,10 +25,7 @@ const LeaveSchema = new Schema({
     nameOfActor: {
         type: String,
     },
-    actorEmail: { 
-        type: String, 
-        trim: true 
-    },
+    actorEmail: { type: String, trim: true },
     isHODApproved: {
         type: Boolean,
     },
@@ -40,4 +38,4 @@ const LeaveSchema = new Schema({
 
 });
 
-module.exports = Leave = mongoose.model('leave', LeaveSchema);
+module.exports = Leave = mongoose.model('leave', StudyLeaveSchema);

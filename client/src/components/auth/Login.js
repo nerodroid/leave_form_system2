@@ -59,8 +59,15 @@ const Login = (props) => {
   const [values, setValues] = useState({ email: "", password: "" });
   const { errors } = props;
   const classes = useStyles();
+<<<<<<< HEAD
   const handleChange = (e) =>
-  setValues({ ...values, [e.target.name]: e.target.value });
+    setValues({ ...values, [e.target.name]: e.target.value });
+=======
+
+  const handleChange = (e) =>
+    setValues({ ...values, [e.target.name]: e.target.value });
+
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
   useEffect(() => {
     if (props.auth.isAuthenticated) {
       props.history.push("/home");
@@ -68,15 +75,27 @@ const Login = (props) => {
   }, []);
 
   const onSubmit = (e) => {
+
     e.preventDefault();
+<<<<<<< HEAD
     props.loginUser(values, props.history);
+=======
+
+    console.log(values);
+    props.loginUser(values, props.history);
+
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
   };
 
-  const onChange = (e) => {
-    setValues({ [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+
+    console.log("OnChange");
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   return (
+
+  
     <div>
       <Grid className={classes.heading}>
         <h1>Document Management System</h1>
@@ -92,7 +111,18 @@ const Login = (props) => {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
+<<<<<<< HEAD
             <form className={classes.form} method="POST" noValidate  onSubmit={onSubmit}>
+=======
+
+            <form 
+            className={classes.form}  
+            method="POST"
+            noValidate
+            onSubmit={onSubmit}
+            >
+
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -105,7 +135,12 @@ const Login = (props) => {
                 autoFocus
                 size="small"
                 onChange={handleChange}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
               />
+
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -118,7 +153,12 @@ const Login = (props) => {
                 autoComplete="current-password"
                 size="small"
                 onChange={handleChange}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
               />
+
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -129,7 +169,7 @@ const Login = (props) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
+               
                 size="small"
               >
                 Login

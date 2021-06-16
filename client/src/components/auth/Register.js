@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
+import { Link } from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -77,8 +77,19 @@ const Register = (props) => {
   }, []);
 
   const onSubmit = (e) => {
+
+    
+    console.log(this.state.name);
     e.preventDefault();
-    props.registerUser(values, props.history);
+
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2,
+    };
+    //
+    this.props.registerUser(newUser, this.props.history);
   };
 
   const onChange = (e) => {
@@ -94,12 +105,7 @@ const Register = (props) => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form
-          className={classes.form}
-          method="POST"
-          noValidate
-          onSubmit={onSubmit}
-        >
+        <form className={classes.form} method="POST" noValidate onSubmit={onSubmit} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -279,21 +285,23 @@ const Register = (props) => {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            size="small"
-          >
-            Sign Up
-          </Button>
+          
+
+          <Link to="/about">
+              <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    size="small">
+                      Sign Up
+              </Button>
+          </Link>
+          
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" color="secondary">
                 Already have an account? Log in
-              </Link>
             </Grid>
           </Grid>
         </form>
