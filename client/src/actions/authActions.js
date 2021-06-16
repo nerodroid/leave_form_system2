@@ -9,6 +9,15 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 export const registerUser = (userData, history) => dispatch => {
 
   axios
+<<<<<<< HEAD
+    .post('api/users/register', values)
+    .then((res) => history.push("/login"))
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+=======
     .post('api/users/register', userData)
     .then(res => history.push('/login'))
     .catch(err =>
@@ -20,10 +29,17 @@ export const registerUser = (userData, history) => dispatch => {
         })
       }
 
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
     );
 };
 
 // Login - Get User Token
+<<<<<<< HEAD
+export const loginUser = (userData, history) => (dispatch) => {
+  axios
+    .post('api/users/login', userData)
+    .then((res) => {
+=======
 
 export const loginUser = (userData,history) => dispatch => {
   
@@ -31,6 +47,7 @@ export const loginUser = (userData,history) => dispatch => {
     .post('api/users/login', userData)
     .then(res => {
 
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -42,6 +59,15 @@ export const loginUser = (userData,history) => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
+<<<<<<< HEAD
+      history.push("/home")
+    })
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+=======
 
 
       console.log("done")
@@ -55,6 +81,7 @@ export const loginUser = (userData,history) => dispatch => {
       // })
     }
       
+>>>>>>> 692ef66e42e71820e62a7039aca3758ade9afdb3
     );
 };
 

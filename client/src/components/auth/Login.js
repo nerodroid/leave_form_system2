@@ -59,13 +59,14 @@ const Login = (props) => {
   const [values, setValues] = useState({ email: "", password: "" });
   const { errors } = props;
   const classes = useStyles();
-
+ HEAD
   const handleChange = (e) =>
     setValues({ ...values, [e.target.name]: e.target.value });
 
+
   useEffect(() => {
     if (props.auth.isAuthenticated) {
-      props.history.push("/dashboard");
+      props.history.push("/home");
     }
   }, []);
 
@@ -73,8 +74,7 @@ const Login = (props) => {
 
     e.preventDefault();
 
-    console.log(values);
-    props.loginUser(values,props.history);
+    props.loginUser(values, props.history);
 
   };
 
@@ -103,6 +103,7 @@ const Login = (props) => {
               Login
             </Typography>
 
+
             <form 
             className={classes.form}  
             method="POST"
@@ -122,7 +123,6 @@ const Login = (props) => {
                 autoFocus
                 size="small"
                 onChange={handleChange}
-
               />
 
               <TextField
@@ -136,8 +136,7 @@ const Login = (props) => {
                 id="password"
                 autoComplete="current-password"
                 size="small"
-                onChange={handleChange}
-
+                onChange={handleChange}ade9afdb3
               />
 
               <FormControlLabel
