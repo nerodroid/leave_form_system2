@@ -34,16 +34,12 @@ router.post('/register', (req, res) => {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
     } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: '200', // Size
-        r: 'pg', // Rating
-        d: 'mm' // Default
-      });
+      
 
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        avatar,
+        user_type: req.body.user_type,
         password: req.body.password
       });
 
@@ -66,6 +62,7 @@ router.post('/register', (req, res) => {
 // @access  Public
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
+  console.log(req.body)
 
   // Check Validation
   if (!isValid) {

@@ -5,41 +5,56 @@ import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 // Register User
-export const registerUser = (values, history) => (dispatch) => {
-  console.log(values);
+
+export const registerUser = (userData, history) => dispatch => {
+
   axios
-    .post('api/users/register', values)
-    .then((res) => history.push("/login"))
-    .catch((err) =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data.data,
-      })
+    .post('api/users/register', userData)
+    .then(res => history.push('/login'))
+    .catch(err =>
+      {
+        console.log(err)
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      }
+
     );
 };
 
 // Login - Get User Token
-export const loginUser = (userData,history) => (dispatch) => {
+
+export const loginUser = (userData,history) => dispatch => {
+  
   axios
     .post('api/users/login', userData)
-    .then((res) => {
+    .then(res => {
+
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
+
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-      history.push("/home")
-    })
-    .catch((err) =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.userData,
-      })
+
+
+      console.log("done")
+
+      history.push('/dashboard')
+    }).catch(err => {
+      console.log(err)
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: err.response.data
+      // })
+    }
+      
     );
 };
 

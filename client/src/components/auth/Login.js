@@ -70,15 +70,23 @@ const Login = (props) => {
   }, []);
 
   const onSubmit = (e) => {
+
     e.preventDefault();
-    props.loginUser(values, props.history);
+
+    console.log(values);
+    props.loginUser(values,props.history);
+
   };
 
-  const onChange = (e) => {
-    setValues({ [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+
+    console.log("OnChange");
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   return (
+
+  
     <div>
       <Grid className={classes.heading}>
         <h1>Document Management System</h1>
@@ -94,12 +102,14 @@ const Login = (props) => {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
+
             <form 
             className={classes.form}  
             method="POST"
             noValidate
             onSubmit={onSubmit}
             >
+
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -112,7 +122,9 @@ const Login = (props) => {
                 autoFocus
                 size="small"
                 onChange={handleChange}
+
               />
+
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -125,7 +137,9 @@ const Login = (props) => {
                 autoComplete="current-password"
                 size="small"
                 onChange={handleChange}
+
               />
+
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -136,7 +150,7 @@ const Login = (props) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
+               
                 size="small"
               >
                 Login
