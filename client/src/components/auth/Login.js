@@ -59,10 +59,8 @@ const Login = (props) => {
   const [values, setValues] = useState({ email: "", password: "" });
   const { errors } = props;
   const classes = useStyles();
- HEAD
   const handleChange = (e) =>
     setValues({ ...values, [e.target.name]: e.target.value });
-
 
   useEffect(() => {
     if (props.auth.isAuthenticated) {
@@ -71,18 +69,10 @@ const Login = (props) => {
   }, []);
 
   const onSubmit = (e) => {
-
     e.preventDefault();
-
     props.loginUser(values, props.history);
-
   };
 
-  const handleChange = (e) => {
-
-    console.log("OnChange");
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
 
   return (
 
@@ -102,14 +92,7 @@ const Login = (props) => {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-
-
-            <form 
-            className={classes.form}  
-            method="POST"
-            noValidate
-            onSubmit={onSubmit}
-            >
+            <form className={classes.form} method="POST" noValidate  onSubmit={onSubmit}>
 
               <TextField
                 variant="outlined"
@@ -136,7 +119,7 @@ const Login = (props) => {
                 id="password"
                 autoComplete="current-password"
                 size="small"
-                onChange={handleChange}ade9afdb3
+                onChange={handleChange}
               />
 
               <FormControlLabel

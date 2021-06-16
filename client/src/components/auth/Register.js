@@ -69,7 +69,7 @@ const Register = (props) => {
 
   useEffect(() => {
     if (props.auth.isAuthenticated) {
-      props.history.push("/dashboard");
+      props.history.push("/home");
     }
     // if (nextProps.errors) {
     //   this.setState({ errors: nextProps.errors });
@@ -77,24 +77,10 @@ const Register = (props) => {
   }, []);
 
   const onSubmit = (e) => {
-
-    
-    console.log(this.state.name);
     e.preventDefault();
-
-    const newUser = {
-      name: this.state.name,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2,
-    };
-    //
-    this.props.registerUser(newUser, this.props.history);
+    props.registerUser(values, props.history);
   };
 
-  const onChange = (e) => {
-    setValues({ [e.target.name]: e.target.value });
-  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -287,7 +273,7 @@ const Register = (props) => {
           </Grid>
           
 
-          <Link to="/about">
+          
               <Button
                     type="submit"
                     fullWidth
@@ -297,7 +283,6 @@ const Register = (props) => {
                     size="small">
                       Sign Up
               </Button>
-          </Link>
           
           <Grid container justify="flex-end">
             <Grid item>
