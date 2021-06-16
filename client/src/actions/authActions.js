@@ -7,7 +7,7 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 // Register User
 export const registerUser = (values, history) => (dispatch) => {
   axios
-    .post("http://localhost:5000/api/users/register", values)
+    .post('api/users/register', values)
     .then((res) => history.push("/login"))
     .catch((err) =>
       dispatch({
@@ -18,9 +18,9 @@ export const registerUser = (values, history) => (dispatch) => {
 };
 
 // Login - Get User Token
-export const loginUser = (userData) => (dispatch) => {
+export const loginUser = (userData, history) => (dispatch) => {
   axios
-    .post("http://localhost:5000/api/users/login", userData)
+    .post('api/users/login', userData)
     .then((res) => {
       // Save to localStorage
       const { token } = res.data;
@@ -32,6 +32,7 @@ export const loginUser = (userData) => (dispatch) => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
+      history.push("/home")
     })
     .catch((err) =>
       dispatch({
