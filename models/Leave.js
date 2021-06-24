@@ -8,6 +8,17 @@ const LeaveSchema = new Schema({
         ref: 'users'
     },
 
+    applicantName: {
+        type:String,
+    },
+
+    applicantUserType: {
+        type:String,
+    },
+    leaveType: {
+        type:String,
+    },
+
     dateTo: {
         type: Date,
     },
@@ -17,14 +28,13 @@ const LeaveSchema = new Schema({
     apointmentDate: {
         type: Date,
     },
-
     reason: {
         type: String,
     },
     nameOfActor: {
         type: String,
     },
-    actorEmail: { 
+    actorEmail: {      
         type: String, 
         trim: true 
     },
@@ -37,6 +47,17 @@ const LeaveSchema = new Schema({
     isARApproved: {
         type: Boolean,
     },
+    location: {
+        type: String,
+    },
+    duration: {
+        type: String,
+    },
+    institute: {
+        type: String,
+    }
+
+
 
 });
 

@@ -8,35 +8,59 @@ import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
+import DatePicker from 'react-date-picker';
+import { Col, Row } from "react-bootstrap";
+
 
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displaySocialInputs: false,
-      handle: '',
-      company: '',
-      website: '',
-      location: '',
-      status: '',
-      skills: '',
-      githubusername: '',
-      bio: '',
-      twitter: '',
-      facebook: '',
-      linkedin: '',
-      youtube: '',
-      instagram: '',
+
+      firstName: '',
+      lastName: '',
+      fullName: '',
+      faculty: '',
+      gender: '',
+      address: '',
+      phoneNo:'',
+      empId:'',
+      dob:  new Date(),
+      // handle: '',
+      // company: '',
+      // website: '',
+      // location: '',
+      // status: '',
+      // skills: '',
+      // githubusername: '',
+      // bio: '',
+      // twitter: '',
+      // facebook: '',
+      // linkedin: '',
+      // youtube: '',
+      // instagram: '',
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+
+
+
+  handleChange(date) {
+    console.log(date)
+    this.setState({
+      startDate: date
+    })
+  }
+
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -47,48 +71,59 @@ class CreateProfile extends Component {
       const profile = nextProps.profile.profile;
 
       // Bring skills array back to CSV
-      const skillsCSV = profile.skills.join(',');
-
+      //const skillsCSV = profile.skills.join(',');
+      console.log( !isEmpty(profile.firstName));
       // If profile field doesnt exist, make empty string
-      profile.company = !isEmpty(profile.company) ? profile.company : '';
-      profile.website = !isEmpty(profile.website) ? profile.website : '';
-      profile.location = !isEmpty(profile.location) ? profile.location : '';
-      profile.githubusername = !isEmpty(profile.githubusername)
-        ? profile.githubusername
-        : '';
-      profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
-      profile.social = !isEmpty(profile.social) ? profile.social : {};
-      profile.twitter = !isEmpty(profile.social.twitter)
-        ? profile.social.twitter
-        : '';
-      profile.facebook = !isEmpty(profile.social.facebook)
-        ? profile.social.facebook
-        : '';
-      profile.linkedin = !isEmpty(profile.social.linkedin)
-        ? profile.social.linkedin
-        : '';
-      profile.youtube = !isEmpty(profile.social.youtube)
-        ? profile.social.youtube
-        : '';
-      profile.instagram = !isEmpty(profile.social.instagram)
-        ? profile.social.instagram
-        : '';
+      profile.firstName = !isEmpty(profile.firstName) ? profile.firstName : '';
+      profile.lastName = !isEmpty(profile.lastName) ? profile.lastName : '';
+      profile.fullName = !isEmpty(profile.fullName) ? profile.fullName : '';
+      profile.faculty = !isEmpty(profile.faculty)? profile.faculty: '';
+      profile.phoneNo = !isEmpty(profile.phoneNo) ? profile.phoneNo : '';
+      profile.gender = !isEmpty(profile.gender) ? profile.gender :'';
+      profile.address = !isEmpty(profile.address) ? profile.address: '';
+      profile.dob = !isEmpty(profile.dob) ? profile.dob :'';  
+      profile.empId = !isEmpty(profile.empId) ? profile.empId :'';  
+
+
+      // profile.facebook = !isEmpty(profile.social.facebook)
+      //   ? profile.social.facebook
+      //   : '';
+      // profile.linkedin = !isEmpty(profile.social.linkedin)
+      //   ? profile.social.linkedin
+      //   : '';
+      // profile.youtube = !isEmpty(profile.social.youtube)
+      //   ? profile.social.youtube
+      //   : '';
+      // profile.instagram = !isEmpty(profile.social.instagram)
+      //   ? profile.social.instagram
+      //   : '';
 
       // Set component fields state
       this.setState({
-        handle: profile.handle,
-        company: profile.company,
-        website: profile.website,
-        location: profile.location,
-        status: profile.status,
-        skills: skillsCSV,
-        githubusername: profile.githubusername,
-        bio: profile.bio,
-        twitter: profile.twitter,
-        facebook: profile.facebook,
-        linkedin: profile.linkedin,
-        youtube: profile.youtube,
-        instagram: profile.instagram
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        fullName: profile.fullName,
+        faculty: profile.faculty,
+        phoneNo: profile.phoneNo,
+        gender: profile.gender,
+        address: profile.address,
+        dob: profile.dob,
+        empId:profile.empId,
+
+
+        // handle: profile.handle,
+        // company: profile.company,
+        // website: profile.website,
+        // location: profile.location,
+        // status: profile.status,
+        // //skills: skillsCSV,
+        // githubusername: profile.githubusername,
+        // bio: profile.bio,
+        // twitter: profile.twitter,
+        // facebook: profile.facebook,
+        // linkedin: profile.linkedin,
+        // youtube: profile.youtube,
+        // instagram: profile.instagram
       });
     }
   }
@@ -97,19 +132,30 @@ class CreateProfile extends Component {
     e.preventDefault();
 
     const profileData = {
-      handle: this.state.handle,
-      company: this.state.company,
-      website: this.state.website,
-      location: this.state.location,
-      status: this.state.status,
-      skills: this.state.skills,
-      githubusername: this.state.githubusername,
-      bio: this.state.bio,
-      twitter: this.state.twitter,
-      facebook: this.state.facebook,
-      linkedin: this.state.linkedin,
-      youtube: this.state.youtube,
-      instagram: this.state.instagram
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      fullName: this.state.fullName,
+      faculty: this.state.faculty,
+      phoneNo: this.state.phoneNo,
+      gender: this.state.gender,
+      address: this.state.address,
+      dob: this.state.dob,
+      empId:this.state.empId,
+
+
+      // handle: this.state.handle,
+      // company: this.state.company,
+      // website: this.state.website,
+      // location: this.state.location,
+      // status: this.state.status,
+      // skills: this.state.skills,
+      // githubusername: this.state.githubusername,
+      // bio: this.state.bio,
+      // twitter: this.state.twitter,
+      // facebook: this.state.facebook,
+      // linkedin: this.state.linkedin,
+      // youtube: this.state.youtube,
+      // instagram: this.state.instagram
     };
 
     this.props.createProfile(profileData, this.props.history);
@@ -125,81 +171,227 @@ class CreateProfile extends Component {
     let socialInputs;
 
     if (displaySocialInputs) {
-      socialInputs = (
-        <div>
-          <InputGroup
-            placeholder="Twitter Profile URL"
-            name="twitter"
-            icon="fab fa-twitter"
-            value={this.state.twitter}
-            onChange={this.onChange}
-            error={errors.twitter}
-          />
+      // socialInputs = (
+      //   <div>
+      //     <InputGroup
+      //       placeholder="Twitter Profile URL"
+      //       name="twitter"
+      //       icon="fab fa-twitter"
+      //       value={this.state.twitter}
+      //       onChange={this.onChange}
+      //       error={errors.twitter}
+      //     />
 
-          <InputGroup
-            placeholder="Facebook Page URL"
-            name="facebook"
-            icon="fab fa-facebook"
-            value={this.state.facebook}
-            onChange={this.onChange}
-            error={errors.facebook}
-          />
+      //     <InputGroup
+      //       placeholder="Facebook Page URL"
+      //       name="facebook"
+      //       icon="fab fa-facebook"
+      //       value={this.state.facebook}
+      //       onChange={this.onChange}
+      //       error={errors.facebook}
+      //     />
 
-          <InputGroup
-            placeholder="Linkedin Profile URL"
-            name="linkedin"
-            icon="fab fa-linkedin"
-            value={this.state.linkedin}
-            onChange={this.onChange}
-            error={errors.linkedin}
-          />
+      //     <InputGroup
+      //       placeholder="Linkedin Profile URL"
+      //       name="linkedin"
+      //       icon="fab fa-linkedin"
+      //       value={this.state.linkedin}
+      //       onChange={this.onChange}
+      //       error={errors.linkedin}
+      //     />
 
-          <InputGroup
-            placeholder="YouTube Channel URL"
-            name="youtube"
-            icon="fab fa-youtube"
-            value={this.state.youtube}
-            onChange={this.onChange}
-            error={errors.youtube}
-          />
+      //     <InputGroup
+      //       placeholder="YouTube Channel URL"
+      //       name="youtube"
+      //       icon="fab fa-youtube"
+      //       value={this.state.youtube}
+      //       onChange={this.onChange}
+      //       error={errors.youtube}
+      //     />
 
-          <InputGroup
-            placeholder="Instagram Page URL"
-            name="instagram"
-            icon="fab fa-instagram"
-            value={this.state.instagram}
-            onChange={this.onChange}
-            error={errors.instagram}
-          />
-        </div>
-      );
+      //     <InputGroup
+      //       placeholder="Instagram Page URL"
+      //       name="instagram"
+      //       icon="fab fa-instagram"
+      //       value={this.state.instagram}
+      //       onChange={this.onChange}
+      //       error={errors.instagram}
+      //     />
+      //   </div>
+      // );
     }
 
     // Select options for status
-    const options = [
-      { label: '* Select Professional Status', value: 0 },
-      { label: 'Developer', value: 'Developer' },
-      { label: 'Junior Developer', value: 'Junior Developer' },
-      { label: 'Senior Developer', value: 'Senior Developer' },
-      { label: 'Manager', value: 'Manager' },
-      { label: 'Student or Learning', value: 'Student or Learning' },
-      { label: 'Instructor or Teacher', value: 'Instructor or Teacher' },
-      { label: 'Intern', value: 'Intern' },
-      { label: 'Other', value: 'Other' }
+    // const options = [
+    //   { label: '* Select Professional Status', value: 0 },
+    //   { label: 'Developer', value: 'Developer' },
+    //   { label: 'Junior Developer', value: 'Junior Developer' },
+    //   { label: 'Senior Developer', value: 'Senior Developer' },
+    //   { label: 'Manager', value: 'Manager' },
+    //   { label: 'Student or Learning', value: 'Student or Learning' },
+    //   { label: 'Instructor or Teacher', value: 'Instructor or Teacher' },
+    //   { label: 'Intern', value: 'Intern' },
+    //   { label: 'Other', value: 'Other' }
+    // ];
+
+    const facultyOptions = [
+      { label: 'Science', value: 'science' },
+      { label: 'Management', value: 'management' },
+     
+    ];
+
+    const genderOptions = [
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+     
     ];
 
     return (
-      <div className="create-profile">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
-              </Link>
-              <h1 className="display-4 text-center">Edit Profile</h1>
-              <small className="d-block pb-3">* = required fields</small>
+      <div className="container" class="w-75 p-3" style={{  margin:'auto'}}>
+      <Link to="/dashboard" className="btn btn-light">
+          Go Back
+      </Link>
+      <br/>  <br/>
+      <div className="card bg-light mb-3 text-dark">
+      <div className="card-body">
+              <h2 className="text-center"><i>Edit Profile</i></h2><hr/>
+              <small className="d-block pb-3 text-danger">* = required fields</small>
               <form onSubmit={this.onSubmit}>
+              <Row>
+              <Col md="6">
                 <TextFieldGroup
+                    placeholder="* firstName"
+                    name="firstName"
+                    value={this.state.firstName}
+                    onChange={this.onChange}
+                    error={errors.firstName}
+                    info="First Name"
+                  />
+            </Col>
+            <Col md="6">
+                <TextFieldGroup
+                  placeholder="* lastName"
+                  name="lastName"
+                  value={this.state.lastName}
+                  onChange={this.onChange}
+                  error={errors.lastName}
+                  info="Last Name"
+                />
+          </Col>
+          </Row>
+
+          <Row>
+          <Col md="6">
+                <TextFieldGroup
+                  placeholder="* fullName"
+                  name="fullName"
+                  value={this.state.firstName}
+                  onChange={this.onChange}
+                  error={errors.firstName}
+                  info="Full Name"
+                />
+            </Col>
+            <Col md="6">
+                <TextFieldGroup
+                  placeholder="* Employee ID"
+                  name="empId"
+                  value={this.state.empId}
+                  onChange={this.onChange}
+                  error={errors.empId}
+                  info="empId"
+                />
+            </Col>
+            </Row>
+
+                {/* <TextFieldGroup
+                  placeholder="* faculty"
+                  name="faculty"
+                  value={this.state.firstName}
+                  onChange={this.onChange}
+                  error={errors.faculty}
+                  info="Choose your faculty"
+                /> */}
+          <Row>
+          <Col md="4">
+
+                <SelectListGroup
+                  placeholder="Select Faculty"
+                  name="faculty"
+                  value={this.state.faculty}
+                  onChange={this.onChange}
+                  options={facultyOptions}
+                  error={errors.faculty}
+                  info="Choose your faculty"
+                />
+          </Col>
+          <Col md="4">
+                <TextFieldGroup
+                  placeholder="* phoneNo"
+                  name="phoneNo"
+                  value={this.state.phoneNo}
+                  onChange={this.onChange}
+                  error={errors.phoneNo}
+                  info="Phone Number"
+                />
+        
+                {/* <TextFieldGroup
+                  placeholder="* gender"
+                  name="gender"
+                  value={this.state.gender}
+                  onChange={this.onChange}
+                  error={errors.gender}
+                  info="gender"
+                /> */}
+
+          </Col>
+          <Col md="4">
+                <SelectListGroup
+                  placeholder="Select Gender"
+                  name="gender"
+                  value={this.state.gender}
+                  onChange={this.onChange}
+                  options={genderOptions}
+                  error={errors.gender}
+                  info="Choose your Gender"
+                />
+                
+          </Col>
+          </Row>
+
+          <Row>
+          <Col md="8">
+                <TextFieldGroup
+                  placeholder="* address"
+                  name="address"
+                  value={this.state.address}
+                  onChange={this.onChange}
+                  error={errors.address}
+                  info="Address"
+                />
+          </Col>
+          </Row>
+                {/* <TextFieldGroup
+                  placeholder="* dob"
+                  name="dob"
+                  value={this.state.dob}
+                  onChange={this.onChange}
+                  error={errors.dob}
+                  info="Date of Birth"
+                /> */}
+
+
+                  <div> 
+                     <div className="form-text text-muted">Date of Birth
+                     </div>
+                      <DatePicker className="form-text text-muted"
+                        onChange={this.handleChange}
+                        value={this.state.dob}  />
+                  </div> */}
+
+
+
+
+                {/* <TextFieldGroup
                   placeholder="* Profile Handle"
                   name="handle"
                   value={this.state.handle}
@@ -266,6 +458,7 @@ class CreateProfile extends Component {
                   info="Tell us a little about yourself"
                 />
 
+
                 <div className="mb-3">
                   <button
                     type="button"
@@ -280,17 +473,28 @@ class CreateProfile extends Component {
                   </button>
                   <span className="text-muted">Optional</span>
                 </div>
-                {socialInputs}
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
+                {socialInputs} */}
+
+                <Row>
+              <Col md="2"></Col>
+                <Col md="8">
+              
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="text-center btn btn-info btn-block mt-4"
+                  />
+                
+                </Col>
+                <Col md="2"></Col>
+                </Row>
               </form>
             </div>
-          </div>
+      
         </div>
-      </div>
+        
+        </div>
+    
     );
   }
 }

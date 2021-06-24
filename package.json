@@ -22,9 +22,15 @@
     "mongoose": "^5.0.12",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react-date-picker": "^8.2.0",
+    "react-datepicker": "^4.1.1",
+    "react-to-print": "^2.12.6",
     "validator": "^9.4.1"
   },
   "devDependencies": {
+    "@iconify-icons/dashicons": "^1.1.0",
+    "@iconify-icons/fa-solid": "^1.1.1",
+    "@iconify/react": "^1.1.4",
     "nodemon": "^1.17.3"
   }
 }

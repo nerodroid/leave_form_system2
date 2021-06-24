@@ -1,188 +1,156 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import logo from "../../img/UoJ_logo.png";
-import Avatar from "@material-ui/core/Avatar";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
+import TextFieldGroup from '../common/TextFieldGroup';
+import {  ButtonToolbar, Modal,FormControl,InputGroup } from 'react-bootstrap';
+import { BrowserRouter as Router, Switch,Redirect, Route, Link } from "react-router-dom";
+import { Icon, InlineIcon } from '@iconify/react';
+import emailIcon from '@iconify-icons/dashicons/email';
+import lockIcon from '@iconify-icons/fa-solid/lock';
+import Form from 'react-bootstrap/Form';
+import { Col, Row } from "react-bootstrap";
+import logo from "../../img/unilogo.png";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
-  },
-  image: {
-    backgroundImage: `url(${logo})`,
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "300px",
-    backgroundPosition: "center",
-  },
-  paper: {
-    margin: theme.spacing(8, 16),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(6, 0, 2),
-    width: "150px",
-    float: "right",
-  },
-  heading: {
-    textAlign: "center",
-  },
-}));
+class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
+    };
 
-const Login = (props) => {
-  const [values, setValues] = useState({ email: "", password: "" });
-  const { errors } = props;
-  const classes = useStyles();
- HEAD
-  const handleChange = (e) =>
-    setValues({ ...values, [e.target.name]: e.target.value });
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
-
-  useEffect(() => {
-    if (props.auth.isAuthenticated) {
-      props.history.push("/home");
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
     }
-  }, []);
+  }
 
-  const onSubmit = (e) => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
 
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
+  onSubmit(e) {
     e.preventDefault();
 
-    props.loginUser(values, props.history);
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
 
-  };
+    this.props.loginUser(userData);
+  }
 
-  const handleChange = (e) => {
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-    console.log("OnChange");
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  render() {
+    const { errors } = this.state;
 
-  return (
-
-  
-    <div>
-      <Grid className={classes.heading}>
-        <h1>Document Management System</h1>
-      </Grid>
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} md={6} className={classes.image} />
-        <Grid item xs={12} md={6} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Login
-            </Typography>
-
-
-            <form 
-            className={classes.form}  
-            method="POST"
-            noValidate
-            onSubmit={onSubmit}
-            >
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                size="small"
-                onChange={handleChange}
-              />
-
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                size="small"
-                onChange={handleChange}ade9afdb3
-              />
-
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-                size="small"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-               
-                size="small"
-              >
-                Login
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2" color="secondary">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/sign-up" variant="body2" color="secondary">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
+    return (
+      <div class="content">
+      <div  className="form-wrapper">
+       <div class="card bg-light text-dark col-lg-10" style={{margin:'auto'}}>
+      <div class="card-body">
+      <Row className="justify-content-md-center">
+         <Col md="4">
+          <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+              <img src={logo} style={{width:"150px", height:"150px"}}/>
+            </div>
           </div>
-        </Grid>
-      </Grid>
-    </div>
-  );
-};
+          </Col>
+   
+        <Col md="8">
+        <div class="container" class="col-lg-10 col-md-10 col-sm-10">
+        <div class="card  text-dark">
+        <div class="card-body">
+        <Form onSubmit={this.onSubmit}  autocomplete="off">
+          <div class="text-center">
+            <span>Don't have an account?</span>
+               <Link to="/register"> Register. </Link>
+                <br/> 
+          </div>
+           <br/>
+
+        <div class="text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="5em" height="5em" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+          <br/>
+          <h2 text-align="center"><b><i>Log in to your Account</i></b></h2>
+        </div>
+
+             <hr/><br/>
+            
+        <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1"><Icon icon={emailIcon} /></InputGroup.Text>
+            </InputGroup.Prepend>
+                              
+            <FormControl type="email" name="email" id="email" className="form-control"  className="col-md-6" className="alert alert-dark"
+                 placeholder="Email Address"
+                 aria-label="Email Address"
+                 aria-describedby="basic-addon1"
+                 value={this.state.email}
+                 onChange={this.onChange}
+                 error={errors.email}
+            />
+        </InputGroup>
+
+        <InputGroup className="mb-3">
+          <InputGroup.Prepend>
+             <InputGroup.Text id="basic-addon1"><Icon icon={lockIcon} /></InputGroup.Text>
+          </InputGroup.Prepend>
+                    
+          <FormControl type="password" id="password" name="password"   className="form-control" className="col-md-6" className="alert alert-dark"
+              placeholder="Password"
+              aria-label="Password"
+              aria-describedby="basic-addon1"
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+          />
+          </InputGroup>
+
+           <input type="submit" text="Login" className="btn btn-info btn-block mt-4" />
+        <br/>  <br/>
+      </Form>    
+      </div>
+      </div>
+      </div>
+      </Col>
+      </Row>
+      </div>
+      </div>
+      </div>
+      </div>
+    );
+  }
+}
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

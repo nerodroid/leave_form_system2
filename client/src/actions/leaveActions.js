@@ -7,19 +7,24 @@ import {
   GET_POSTS,
   GET_POST,
   POST_LOADING,
-  DELETE_POST
+  DELETE_POST,
+  ADD_LEAVE
 } from './types';
 
 // Add Post
-export const addLeave = postData => dispatch => {
+export const addLeave = (leaveData, history) => dispatch => {
   dispatch(clearErrors());
+  //console.log("leaveData",leaveData)
   axios
-    .post('/api/posts', postData)
+    .post('/api/leaves', leaveData)
+    
     .then(res =>
       dispatch({
-        type: ADD_POST,
+        type: ADD_LEAVE,
         payload: res.data
-      })
+      },window.location = "/dashboard")
+      
+      
     )
     .catch(err =>
       dispatch({
@@ -30,15 +35,18 @@ export const addLeave = postData => dispatch => {
 };
 
 // Get Posts
-export const getLeaves = () => dispatch => {
+export const getLeaves= userId => dispatch => {
   dispatch(setPostLoading());
   axios
-    .get('/api/posts')
+    .get('/api/leaves/getLeaves/' + userId)
     .then(res =>
-      dispatch({
-        type: GET_POSTS,
-        payload: res.data
-      })
+      {
+        console.log(res)
+        dispatch({
+          type: GET_POSTS,
+          payload: res.data
+        })
+      }
     )
     .catch(err =>
       dispatch({
@@ -48,8 +56,64 @@ export const getLeaves = () => dispatch => {
     );
 };
 
+export const getAllLeaves = (userType) => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get('/api/leaves/' + userType)
+    .then(res =>
+      {
+        console.log(res)
+        dispatch({
+          type: GET_POSTS,
+          payload: res.data
+        })
+      }
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POSTS,
+        payload: null
+      })
+    );
+};
+
+export const approveLeave = id => dispatch => {
+  axios
+    .put(`/api/posts/approve/${id}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_POST,
+        payload: id
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+
+export const disapproveLeave = id => dispatch => {
+  axios
+    .put(`/api/posts/disapprove/${id}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_POST,
+        payload: id
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Get Post
-export const getLeave= id => dispatch => {
+export const getPost = id => dispatch => {
   dispatch(setPostLoading());
   axios
     .get(`/api/posts/${id}`)
@@ -68,7 +132,7 @@ export const getLeave= id => dispatch => {
 };
 
 // Delete Post
-export const deleteLeave = id => dispatch => {
+export const deletePost = id => dispatch => {
   axios
     .delete(`/api/posts/${id}`)
     .then(res =>

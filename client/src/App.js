@@ -16,18 +16,24 @@ import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
+
+import DeanDashboard from './components/dashboard/deanDashboard';
+
+
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
 import AddExperience from './components/add-credentials/AddExperience';
 import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles';
-
-
-import Leaves from './components/leaves/Leaves';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
+import Leaves from './components/leaves/Leaves';
+import LeaveFeed from './components/leaves/LeaveFeed';
 import Post from './components/post/Post';
+import About from './components/about/About';
 import NotFound from './components/not-found/NotFound';
+import CreatePdf from './components/leaves/CreatePdf'
+
 
 import './App.css';
 
@@ -59,23 +65,23 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" component={Login}/>
             <div className="container">
-              <Route exact path="/home" component={Profiles} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/profile/:handle" component={Profile} />
-
-
-              <Route exact path="/leaves" component={Leaves} />
-
-              <PrivateRoute exact path="/feedss" component={Posts} />
-
-
+              <Route exact path="/about" component={About} />
+              <Route exact path="/create-pdf" component={CreatePdf} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
+
+              <Switch>
+                <PrivateRoute exact path="/dean-dashboard" component={DeanDashboard} />
+              </Switch>
+
+
               <Switch>
                 <PrivateRoute
                   exact
@@ -105,11 +111,20 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/feed" component={Posts} />
+                <PrivateRoute exact path="/feed" component={LeaveFeed} />
+              </Switch>
+
+              <Switch>
+                <PrivateRoute exact path="/addpost" component={Posts} />
+              </Switch>
+
+              <Switch>
+                <PrivateRoute exact path="/leaves" component={Leaves} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={Post} />
               </Switch>
+          
               <Route exact path="/not-found" component={NotFound} />
             </div>
             <Footer />

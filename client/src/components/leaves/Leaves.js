@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LeaveForm from './LeaveForm';
-import LeaveFeed from './LeaveFeed';
+import PostForm from './PostForm';
+import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
-import { getLeaves } from '../../actions/leaveActions';
+import { getPosts } from '../../actions/postActions';
+import LeaveForm from './LeaveForm';
+import LeaveFeed from './LeaveFeed'
+import { getLeaves, getAllLeaves } from '../../actions/leaveActions';
 
-class Leaves extends Component {
+class Posts extends Component {
   componentDidMount() {
-    this.props.getLeaves();
+    const { user } = this.props.auth;
+    this.props.getLeaves(user.id);
   }
 
   render() {
-    const { leaves, loading } = this.props.leave;
-    let leaveContent;
+    const { posts, loading } = this.props.post;
+    let postContent;
 
-    if (leaves === null || loading) {
-      leaveContent = <Spinner />;
+    if (posts === null || loading) {
+      postContent = <Spinner />;
     } else {
-      leaveContent = <LeaveFeed leaves={leaves} />;
+      postContent = <LeaveFeed />;
     }
 
     return (
@@ -26,8 +30,9 @@ class Leaves extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <LeaveForm />
-              {leaveContent}
+              {/* <PostForm /> */}
+              <LeaveForm/>
+              {/* {postContent} */}
             </div>
           </div>
         </div>
@@ -36,13 +41,14 @@ class Leaves extends Component {
   }
 }
 
-Leaves.propTypes = {
-  getLeaves: PropTypes.func.isRequired,
-  leave: PropTypes.object.isRequired
+Posts.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  leave: state.leave
+  auth: state.auth,
+  post: state.post
 });
 
-export default connect(mapStateToProps, { getLeaves })(Leaves);
+export default connect(mapStateToProps, { getLeaves })(Posts);
